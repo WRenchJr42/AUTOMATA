@@ -26,16 +26,44 @@ Clone the project
 
 So, traverse to the  directory you downloaded and paste this command.
 
-'''bash
+```bash
   python AUTOMATA.py
   
-'''  
+```  
     
 ## Encouragement
 
 Hope you had a smooth installation , if any issues, please ping it  at the Issues seciton.
 
 Kudos!!
+
+
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/WRenchJr42/AUTOMATA.git
+```
+
+
+
+
+## Aliases??
+
+```bash
+  alias automata='python3 /path-to-this-program/AUTOMATA.py'
+
+```
+    
+## Encouragement
+
+Hope you had a smooth installation , if any issues, please ping it  at the Issues seciton.
+
+Kudos!!
+
 
 
 
