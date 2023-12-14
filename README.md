@@ -21,6 +21,15 @@ Clone the project
   alias automata='python3 /path-to-this-program/AUTOMATA.py'
 
 ```
+
+## Want to go the hard route??
+
+So, traverse to the  directory you downloaded and paste this command.
+
+'''bash
+  python AUTOMATA.py
+  
+'''  
     
 ## Encouragement
 
