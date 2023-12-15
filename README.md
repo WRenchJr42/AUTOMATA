@@ -30,13 +30,6 @@ So, traverse to the  directory you downloaded and paste this command.
   python AUTOMATA.py
   
 ```  
-    
-## Encouragement
-
-Hope you had a smooth installation , if any issues, please ping it  at the Issues seciton.
-
-Kudos!!
-
 
 
 
