@@ -32,24 +32,6 @@ So, traverse to the  directory you downloaded and paste this command.
 ```  
 
 
-
-## Run Locally
-
-Clone the project
-
-```bash
-  git clone https://github.com/WRenchJr42/AUTOMATA.git
-```
-
-
-
-
-## Aliases??
-
-```bash
-  alias automata='python3 /path-to-this-program/AUTOMATA.py'
-
-```
     
 ## Encouragement
 
