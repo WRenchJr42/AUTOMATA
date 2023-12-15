@@ -1,7 +1,9 @@
+import urllib.error
 from urllib import request as rq
 import sys
-import re
+import ssl
 from urllib.parse import urlparse
+
 
 class colors:
     green = '\033[92m'
@@ -10,6 +12,8 @@ class colors:
     warning = '\033[93m'
     fail = '\033[91m'
     end = '\033[0m'
+    purple = '\033[95m'
+
 
 def Banner():
     print(colors.green + "\n\n Version : v1\n")
@@ -19,24 +23,29 @@ def Banner():
                      / {} \\   |       |       |       |  /    |  |     |   / == \\        |        / %% \\                  
                     /      \\  .<_____>.       |       |/______|  |     |  /      \\       |       /      \\  <ANONYM/> ''')
 
-    print(colors.green + "____________________________________________________________________________________________________________________________________________________________________")
+    print(
+        colors.green + "______________________________________________________________________________________________________________________________________")
+
 
 class funny:
     def __init__(self):
         try:
-            print(colors.bold + "\n Initializing")
+            print(colors.bold + "\n                                                        Initializing")
+            print(colors.purple+"URL Examples : h t t p s : / / g o o g s . c o m"
+                  "\n               h t t p s : / / f a m b o o k . c o m "
+                  "\nPlease mention https ,http ,ftp or other protocols for this to work....")
+            self.url = str(input(colors.green + "\nEnter a URL : "))
+            self.mode = int(input(colors.purple + "\nSet of options : " +
+                                  colors.cyan + "\n\n 0 : Check Connection " +
+                                  "\n 1 : GET ; Response Code" +
+                                  "\n 2 : GET ; Byte Length"
+                                  "\n 3 : GET ; Peek at the response"
+                                  "\n 4 : GET ; Decode "
+                                  "\n 5 : PARSE "
+                                  "\n 6 : EXIT\n\n" +
+                                  colors.green + "Your input : "))
 
-            self.url = str(input(colors.green + "Enter a URL : "))
-            self.mode = int(input(colors.bold + "\nEnter the option : "
-                                                "\n\n 0 : Check Connection "
-                                                "\n 1 : GET ; Response Code"
-                                                "\n 2 : GET ; Byte Length"
-                                                "\n 3 : GET ; Peek at the response"
-                                                "\n 4 : GET ; Decode "
-                                                "\n 5 : PARSE "
-                                                "\n 6 : EXIT\n\n"))
-
-            if int(self.mode) > int(6) or int(self.mode) < int(-1):
+            if self.mode > int(6) or self.mode < int(-1):
                 print(colors.warning + "\n ERROR : Invalid Input")
                 print(colors.fail + "\n A.O.U.T.O.M.A.T.A FAILED")
                 sys.exit(1)
@@ -45,16 +54,19 @@ class funny:
             print(f'ERROR : {x}')
 
     def game(self):
-        try:
-            print(colors.bold + "\n Warming UP!! ")
-            print(f"\n Working on URL : {self.url}")
 
-            read = rq.urlopen(self.url)
+        print(colors.bold + "\n Warming UP!! ")
+        print(f"\n Working on URL : {self.url}")
 
-            while self.mode != int(6):
+        error_occurred = False
+        while self.mode != int(6):
+            try:
+                context = ssl._create_unverified_context()
+
+                ssl_response = rq.urlopen(self.url, context=context)
+
                 if self.mode == int(0):
                     response = rq.urlopen(self.url)
-                    read = rq.urlopen(self.url)
                     print(f'\n Is URL closed? : {response.closed}')
 
                 elif self.mode == int(1):
@@ -82,21 +94,49 @@ class funny:
                     print("Path : ", parsed_url.path)
                     print("Query : ", parsed_url.query)
 
-                self.mode = int(input(colors.bold + "\nEnter the option : "
-                                                "\n\n 0 : Check Connection "
-                                                "\n 1 : GET ; Response Code"
-                                                "\n 2 : GET ; Byte Length"
-                                                "\n 3 : GET ; Peek at the response"
-                                                "\n 4 : GET ; Decode "
-                                                "\n 5 : PARSE "
-                                                "\n 6 : EXIT\n\n"))
+            except urllib.error.HTTPError as e:
+                if not error_occurred:
+                    print(colors.fail + "Status : ", e.code)
+                    print(colors.warning + "Reason : ", e.reason)
+                    print(colors.end + "URL : ", e.url)
+                    error_occurred = True
 
-            if self.mode == int(6):
-                print("\n Exiting A.U.T.O.M.A.T.A")
-                sys.exit(0)
+                    continue_option = input(colors.purple + "Do you want to continue? (y/n): ").lower()
+                    if continue_option != 'y':
+                        break
 
-        except Exception as x:
-            print(f"ERROR : {x}")
+            except ssl.SSLCertVerificationError as ssl_error:
+                if not error_occurred:
+                    print(colors.fail + f"SSL Certificate Verification Error: {ssl_error}")
+                    error_occurred = True
+
+                    continue_option = input(colors.purple + "Do you want to continue? (y/n): ").lower()
+                    if continue_option != 'y':
+                        break
+
+            except urllib.error.URLError as e:
+                if not error_occurred:
+                    print(colors.fail + f"\nURL Error: {e}")
+                    print(colors.warning + "\nURL Reason : ", e.reason)
+                    error_occurred = True
+
+                    continue_option = input(colors.purple + "\nDo you want to continue? (y/n): ").lower()
+                    if continue_option != 'y':
+                        break
+
+            self.mode = int(input(colors.purple + "\nSet of options : " +
+                                  colors.cyan + "\n\n 0 : Check Connection " +
+                                  "\n 1 : GET ; Response Code" +
+                                  "\n 2 : GET ; Byte Length"
+                                  "\n 3 : GET ; Peek at the response"
+                                  "\n 4 : GET ; Decode "
+                                  "\n 5 : PARSE "
+                                  "\n 6 : EXIT\n\n" +
+                                  colors.green + "Your input : "))
+
+        if self.mode == int(6):
+            print(colors.warning + "\n Exiting A.U.T.O.M.A.T.A")
+            sys.exit(0)
 
 
 if __name__ == '__main__':
