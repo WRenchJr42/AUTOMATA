@@ -45,7 +45,7 @@ class funny:
                                   "\n 5 : GET Cookies "
                                   "\n 6 : GET Headers "
                                   "\n 7 : PARSE"
-                                  "\n 8 : SEARCH Something in SearchBar"
+                                  "\n 8 :POST and GET ; SEARCH Something in SearchBar"
                                   "\n 9 : EXIT\n\n" +
                                   colors.green + "Your input : "))
 
